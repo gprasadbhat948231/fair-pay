@@ -1,13 +1,12 @@
 import React from 'react'
-import './App.css'
-import SideBar from './Components/SideBar';
+import NavBar from './Components/NavBar';
 
 function App() {
 
   return (
-    <>
-      <SideBar/>
-    </>
+    <div className='roots'>
+      <NavBar/>
+    </div>
   );
 }
 
