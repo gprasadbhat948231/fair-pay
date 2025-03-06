@@ -63,7 +63,7 @@ const NavBar = () => {
           >
             <MenuItem>My Profile</MenuItem>
             <MenuItem>Change Password</MenuItem>
-            <MenuItem>Logout</MenuItem>
+            <MenuItem><Link to='/registration'>Logout</Link></MenuItem>
           </Menu>
         </div>
       </div>
