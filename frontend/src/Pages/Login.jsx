@@ -1,45 +1,62 @@
 import { Button, TextField, Typography } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router";
+import "./Registration.css";
+import axios from "axios";
 
 const Login = () => {
+  const [userDetails, setUserDetails] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUserDetails({ ...userDetails, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:1800/api/users/login",
+        userDetails
+      );
+      console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
-    <div
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        width: "100vw",
-        height: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        backdropFilter: "blur(8px)",
-        backgroundColor: "rgba(5, 5, 5, 0.2)",
-        zIndex: 1000,
-      }}
-    >
-      <div
-        style={{
-          width: 400,
-          backgroundColor: "white",
-          boxShadow: 24,
-          padding: 20,
-          borderRadius: 2,
-          zIndex: 1001,
-        }}
-      >
-        <Typography variant="h6" gutterBottom>
-          Login
-        </Typography>
-        <TextField fullWidth label="Email" margin="normal" />
-        <TextField fullWidth label="Password" type="password" margin="normal" />
-        <Button fullWidth variant="contained" sx={{ mt: 2 }}>
-          Submit
-        </Button>
-        <Typography marginTop={"10px"}>
-          New User ? <Link to="/registration">Register</Link>{" "}
-        </Typography>
+    <div className="registration-container">
+      <div className="registration-form">
+        <form onSubmit={handleSubmit}>
+          <Typography variant="h6" gutterBottom>
+            Login
+          </Typography>
+          <TextField
+            name="email"
+            onChange={handleChange}
+            fullWidth
+            label="Email"
+            margin="normal"
+          />
+          <TextField
+            fullWidth
+            label="Password"
+            type="password"
+            margin="normal"
+            name="password"
+            onChange={handleChange}
+          />
+          <Button fullWidth type="submit" variant="contained" sx={{ mt: 2 }}>
+            Submit
+          </Button>
+          <Typography marginTop={"10px"}>
+            New User ? <Link to="/registration">Register</Link>{" "}
+          </Typography>
+        </form>
       </div>
     </div>
   );
