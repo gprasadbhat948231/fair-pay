@@ -1,0 +1,27 @@
+.homepage-container {
+  width: 100%;
+}
+
+.homepage-cards-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  width: 98%;
+  margin: auto;
+  place-items: "center";
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 1020px) {
+  .homepage-cards-container {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+    width: 98%;
+    margin: auto;
+    place-items: "center";
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}

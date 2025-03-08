@@ -3,12 +3,14 @@ import React, { useState } from "react";
 import { Link } from "react-router";
 import "./Registration.css";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 const Login = () => {
   const [userDetails, setUserDetails] = useState({
     email: "",
     password: "",
   });
+  const navigateTo = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -22,7 +24,9 @@ const Login = () => {
         "http://localhost:1800/api/users/login",
         userDetails
       );
-      console.log(response.data);
+      console.log(response.data.user);
+      localStorage.setItem("userCreds", response.data.user);
+      navigateTo("/");
     } catch (err) {
       console.log(err);
     }
@@ -41,12 +45,14 @@ const Login = () => {
             fullWidth
             label="Email"
             margin="normal"
+            required
           />
           <TextField
             fullWidth
             label="Password"
             type="password"
             margin="normal"
+            required
             name="password"
             onChange={handleChange}
           />

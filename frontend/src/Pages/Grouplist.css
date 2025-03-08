@@ -1,0 +1,24 @@
+.group-list-page {
+  width: 100%;
+}
+
+.group-list-container {
+    width: 94%;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.group-list-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 40px;
+    background-color: #df73407a;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.group-table {
+    width: 100%;
+}

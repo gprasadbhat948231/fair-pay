@@ -3,9 +3,12 @@ import "./Navbar.css";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Link } from "react-router";
 import { IconButton, Menu, MenuItem } from "@mui/material";
+import { useNavigate } from "react-router";
 
 const NavBar = () => {
   const [hoverElement, setHoverElement] = useState(false);
+
+  const navigateTo = useNavigate();
 
   const handleClick = (e) => {
     setHoverElement(e.currentTarget);
@@ -13,6 +16,11 @@ const NavBar = () => {
 
   const handleClose = () => {
     setHoverElement(false);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("userCreds");
+    navigateTo("/login");
   };
 
   return (
@@ -63,7 +71,7 @@ const NavBar = () => {
           >
             <MenuItem>My Profile</MenuItem>
             <MenuItem>Change Password</MenuItem>
-            <MenuItem><Link to='/registration'>Logout</Link></MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
         </div>
       </div>

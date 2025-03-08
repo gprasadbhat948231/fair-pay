@@ -27,9 +27,11 @@ const Registration = () => {
         "http://localhost:1800/api/users/register",
         formData
       );
-      navigateTo("/login");
+      if (response.data.status === 201 || response.data.status === 409) {
+        navigateTo("/login");
+      }
     } catch (err) {
-      console.log(err);
+      console.log(err.message);
     }
   };
 
