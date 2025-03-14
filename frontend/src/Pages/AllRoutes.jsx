@@ -7,6 +7,8 @@ import SettleRemaining from "./SettleRemaining";
 import NoPageFound from "./NoPageFound";
 import Registration from "./Registration";
 import Login from "./Login";
+import Contacts from "./Contacts";
+import CreateGroup from "./CreateGroup";
 
 const AllRoutes = () => {
   return (
@@ -17,6 +19,8 @@ const AllRoutes = () => {
       <Route path="/amount-settle" element={<SettleRemaining />}></Route>
       <Route path="/registration" element={<Registration />}></Route>
       <Route path="/login" element={<Login />}></Route>
+      <Route path="/contacts" element={<Contacts />}></Route>
+      <Route path="/create-group" element={<CreateGroup />}></Route>
       <Route path="*" element={<NoPageFound />}></Route>
     </Routes>
   );

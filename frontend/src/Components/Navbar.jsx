@@ -49,6 +49,9 @@ const NavBar = () => {
             <Link to="amount-settle">
               <div className="menu-options">Settle</div>
             </Link>
+            <Link to="contacts">
+              <div className="menu-options">Contacts</div>
+            </Link>
           </div>
         </div>
         <div className="nav-profile-container">

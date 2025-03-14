@@ -6,14 +6,14 @@ import "./home.css";
 const HomeComponent = () => {
   const navigateTo = useNavigate();
   useEffect(() => {
-    let checkUserLoggedIn = localStorage.getItem("userCreds");
+    let checkUserLoggedIn = JSON.parse(localStorage.getItem("userCreds"));
     if (!checkUserLoggedIn) {
       navigateTo("/login");
     }
   }, []);
   return (
     <div className="homepage-container">
-      <div className='homepage-cards-container'>
+      <div className="homepage-cards-container">
         <HomeComponentCards heading="Highest Expenses" />
         <HomeComponentCards heading="Most participated groups" />
         <HomeComponentCards heading="Recent groups" />

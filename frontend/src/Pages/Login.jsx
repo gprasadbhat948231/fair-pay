@@ -25,7 +25,7 @@ const Login = () => {
         userDetails
       );
       console.log(response.data.user);
-      localStorage.setItem("userCreds", response.data.user);
+      localStorage.setItem("userCreds", JSON.stringify(response.data.user));
       navigateTo("/");
     } catch (err) {
       console.log(err);
