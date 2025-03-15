@@ -16,7 +16,7 @@ export const getGroupDetails = async (req, res) => {
           groupName: item.groupName,
           expenses: item.expenses,
           created_at: item.created_at,
-          total_members: item.groupMembers[0].length,
+          total_members: item.groupMembers.length,
         };
       });
       return res.status(200).json({

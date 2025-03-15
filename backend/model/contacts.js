@@ -5,7 +5,7 @@ const ContactsSchema = mongoose.Schema({
   phone: { type: String, required: true },
   email: { type: String },
   created_at: { type: Date, default: Date.now() },
-  created_by: { type: mongoose.Schema.Types.ObjectId, required: true },
+  created_by: { type: String, required: true },
 });
 
 const contactsModel = mongoose.model("contact", ContactsSchema);

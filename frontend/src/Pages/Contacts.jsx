@@ -12,6 +12,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import "./Grouplist.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 const Contacts = () => {
   const [open, setOpen] = useState(false);
@@ -68,6 +69,16 @@ const Contacts = () => {
     },
   ];
 
+  const handleEdit = (data) => {
+    setOpen(true);
+    setContact({
+      name: data.name,
+      phone: data.phone,
+      email: data.email,
+      id: data.id,
+    });
+  };
+
   const handleAddContact = () => setOpen(true);
 
   const handleClose = () => setOpen(false);
@@ -76,6 +87,8 @@ const Contacts = () => {
     const { name, value } = e.target;
     setContact({ ...contact, [name]: value });
   };
+
+  const navigateTo = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -91,7 +104,6 @@ const Contacts = () => {
           setData(response);
           setLoading(false);
         }
-        // response = response.json();
       } catch (err) {
         setLoading(false);
         console.log(err);
@@ -100,16 +112,28 @@ const Contacts = () => {
     fetchData();
   }, []);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e, isUpdate) => {
     e.preventDefault();
     const contactDetails = JSON.parse(localStorage.getItem("userCreds"));
     try {
-        setLoading(true);
-      const response = await axios.post(
-        "http://localhost:1800/api/contacts/create-contact",
-        { ...contact, created_by: contactDetails._id }
-      );
-      setLoading(false);
+      setLoading(true);
+      let response = null;
+      if (isUpdate) {
+        response = await axios.patch(
+          "http://localhost:1800/api/contacts/update-contact",
+          { ...contact }
+        );
+      } else {
+        response = await axios.post(
+          "http://localhost:1800/api/contacts/create-contact",
+          { ...contact, created_by: contactDetails._id }
+        );
+      }
+      if (response) {
+        setLoading(false);
+        setOpen(false);
+        navigateTo("/contacts");
+      }
     } catch (err) {
       console.log(err.message);
     }
@@ -170,12 +194,13 @@ const Contacts = () => {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           >
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={(e) => handleSubmit(e, true)}>
               <Box sx={style}>
                 <TextField
                   fullWidth
                   onChange={handleChange}
                   name="name"
+                  value={contact.name}
                   label="Name"
                   required
                 />
@@ -185,12 +210,14 @@ const Contacts = () => {
                   name="phone"
                   label="Phone number"
                   margin="normal"
+                  value={contact.phone}
                   required
                 />
                 <TextField
                   fullWidth
                   onChange={handleChange}
                   name="email"
+                  value={contact.email}
                   label="Email"
                   margin="normal"
                 />

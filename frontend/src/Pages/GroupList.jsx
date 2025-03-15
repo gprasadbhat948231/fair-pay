@@ -18,8 +18,12 @@ import axios from "axios";
 const GroupList = () => {
   const [open, setOpen] = useState(false);
   const [groupList, setGroupList] = useState([]);
+  const [data, setData] = useState({
+    groupname: "",
+    members: [],
+  });
 
-  const handleEdit = (params) => {
+  const handleEdit = (param) => {
     setOpen(true);
   };
 
@@ -62,16 +66,6 @@ const GroupList = () => {
     },
   ];
 
-  let row = [
-    {
-      id: 9,
-      totalmembers: "10",
-      groupname: "Roxie",
-      created_at: "2022-10-20",
-      expenses: 65,
-    },
-  ];
-
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("userCreds"));
     try {
@@ -82,7 +76,6 @@ const GroupList = () => {
         );
 
         if (response) {
-          console.log(response.data);
           setGroupList(response.data.data);
         }
       };
@@ -92,9 +85,7 @@ const GroupList = () => {
     }
   }, []);
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const handleClose = () => setOpen(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;

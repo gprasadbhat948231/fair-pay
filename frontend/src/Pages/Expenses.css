@@ -1,0 +1,26 @@
+.expenses-container {
+  width: 100%;
+}
+
+.cards-container {
+  width: 96%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  gap: 20px;
+  margin: auto;
+  padding-top: 10px;
+}
+
+.expense-btn-containeer {
+    width: 90%;
+    margin: auto;
+    padding-top:10px;
+    padding-left: 10px;
+}
+
+.expenses-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

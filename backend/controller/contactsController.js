@@ -25,7 +25,6 @@ export const getContactList = async (req, res) => {
     let contacts = await Contacts.find({
       created_by: created_by,
     }).lean();
-
     if (contacts.length > 0) {
       contacts = contacts.map((item) => {
         return { ...item, id: item._id, mutual: "-" };
@@ -38,7 +37,27 @@ export const getContactList = async (req, res) => {
         .status(200)
         .json({ message: "Contatcs fetched successfully", data: [] });
   } catch (err) {
-    console.log(err);
+    res.status(501).json({ message: "Please contact system admin" });
+  }
+};
+
+export const updateContactList = async (req, res) => {
+  try {
+    const { name, email, phone, id } = req.body;
+    if (id) {
+      const updatedContact = await Contacts.findByIdAndUpdate(
+        { _id: id },
+        { $set: { name, email, phone } },
+        { new: true, runValidator: true }
+      );
+      if (!updatedContact) {
+        return res.status(404).json({ message: "Contact not found" });
+      }
+      return res
+        .status(200)
+        .json({ message: "Contact updated successfully", updatedContact });
+    }
+  } catch (err) {
     res.status(501).json({ message: "Please contact system admin" });
   }
 };

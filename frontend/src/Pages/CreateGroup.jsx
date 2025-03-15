@@ -11,6 +11,7 @@ import {
 import { useEffect, useState } from "react";
 import "./Creategroup.css";
 import axios from "axios";
+import { useNavigate } from "react-router";
 
 export default function CreateGroup() {
   const [groupData, setGroupData] = useState({
@@ -19,6 +20,7 @@ export default function CreateGroup() {
   });
   const [contactList, setContactList] = useState([]);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("userCreds"));
@@ -49,6 +51,7 @@ export default function CreateGroup() {
       );
       if (response) {
         setLoading(false);
+        navigate("/groups");
       }
     } catch (err) {
       console.log(err);
